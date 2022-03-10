@@ -1,0 +1,78 @@
+<div class="panel panel-primary" style="width: 400px; margin-left: 35%; margin-top: 1%;">
+    <div class="panel-heading">Registration</div>
+    <div class="panel-body">
+        <form class="form-group" [formGroup]="registrationForm" class="host" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Id</mat-label>
+                <input matInput type="number" formControlName="id" required [(ngModel)]="user.id">
+                <mat-error *ngIf="registrationForm.controls['id'].invalid">Id is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" required [(ngModel)]="user.name.firstName">
+                <mat-error *ngIf="registrationForm.controls['firstName'].invalid">First Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" required [(ngModel)]="user.name.lastName">
+                <mat-error *ngIf="registrationForm.controls['lastName'].invalid">Last Name is required</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>email</mat-label>
+                <input matInput formControlName="email" required [(ngModel)]="user.email">
+                <mat-error *ngIf="registrationForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" [(ngModel)]="user.address">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>password</mat-label>
+                <input matInput formControlName="password" [type]="passwordHide ? 'password' : 'text'"
+                    [(ngModel)]="user.password.pwd">
+                <button mat-icon-button matSuffix (click)="passwordHide = !passwordHide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="passwordHide">
+                    <mat-icon>{{passwordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="registrationForm.controls['password'].invalid">{{getPasswordErrorMessage()}}
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>confirm password</mat-label>
+                <input matInput formControlName="confirmPassword" [type]="confirmPasswordHide ? 'password' : 'text'"
+                    [(ngModel)]="user.password.confirmPwd">
+                <button mat-icon-button matSuffix (click)="confirmPasswordHide = !confirmPasswordHide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="confirmPasswordHide">
+                    <mat-icon>{{confirmPasswordHide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="registrationForm.controls['confirmPassword'].invalid">Passwords must match
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Phone number</mat-label>
+                <input matInput formControlName="phoneNumber" [(ngModel)]="user.phone">
+                <mat-error *ngIf="registrationForm.controls['phoneNumber'].invalid">{{getPhoneErrorMessage()}}
+                </mat-error>
+                <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <div class="field">
+                <mat-label style="margin-right: auto;">Gender </mat-label>
+                <mat-radio-group aria-label="Select an option" formControlName="gender" [(ngModel)]="user.gender">
+                    <mat-radio-button value="male" name="male">Male</mat-radio-button>
+                    <mat-radio-button value="female" name="female">Female</mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+            <button type="submit" class="btn btn-info" [disabled]="!registrationForm.valid">Submit</button>
+        </form>
+    </div>
+</div>
+<router-outlet></router-outlet>
